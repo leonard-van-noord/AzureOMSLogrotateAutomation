@@ -1,0 +1,144 @@
+lad="/var/opt/microsoft/omsagent/LAD/log/omsagent.log"
+OMSconfigANDOMSconfigdetailed="/var/opt/microsoft/omsconfig/omsconfig.log"
+VMAccess="/var/log/azure/Microsoft.OSTCExtensions.VMAccessForLinux/extension.log"
+AzureEnhancedMonitor="/var/log/azure/Microsoft.OSTCExtensions.AzureEnhancedMonitorForLinux/extension.log"
+OMSAgent="/var/log/azure/Microsoft.EnterpriseCloud.Monitoring.OmsAgentForLinux/extension.log or /var/log/azure/Microsoft.EnterpriseCloud.Monitoring.OmsAgentForLinux/watcher.log"
+VMSnapshot="/var/log/azure/Microsoft.Azure.RecoveryServices.VMSnapshotLinux/extension.log"
+diagnostic="/var/log/azure/Microsoft.Azure.Diagnostics.LinuxDiagnostic/extension.log"
+
+if [[ -f /var/opt/microsoft/omsagent/LAD/log/omsagent.log ]] ;
+then
+   echo "/var/opt/microsoft/omsagent/LAD/log/omsagent.log {
+    rotate 3
+    missingok
+    notifempty
+    compress
+    size 100M
+    copytruncate
+}" > /var/opt/microsoft/omsagent/LAD/log/logrotate.conf
+
+ln -s /var/opt/microsoft/omsagent/LAD/log/logrotate.conf /etc/logrotate.d/omsagent
+
+else
+        echo "$lad is not present, skipping..."
+fi
+
+if [[ -f /var/opt/microsoft/omsconfig/omsconfig.log ]] ;
+then
+   echo "/var/opt/microsoft/omsconfig/omsconfig.log {
+    rotate 3
+    missingok
+    notifempty
+    compress
+    size 100M
+    copytruncate
+}
+
+/var/opt/microsoft/omsconfig/omsconfigdetailed.log {
+    rotate 3
+    missingok
+    notifempty
+    compress
+    size 100M
+    copytruncate
+}" > /var/opt/microsoft/omsconfig/logrotate.conf
+
+ln -s /var/opt/microsoft/omsconfig/logrotate.conf /etc/logrotate.d/omsconfig
+
+else
+        echo "$OMSconfigANDOMSconfigdetailed is not present, skipping..."
+fi
+
+if [[ -f /var/log/azure/Microsoft.EnterpriseCloud.Monitoring.OmsAgentForLinux/watcher.log ]] ;
+then
+   echo "/var/log/azure/Microsoft.EnterpriseCloud.Monitoring.OmsAgentForLinux/watcher.log {
+    rotate 3
+    missingok
+    notifempty
+    compress
+    size 100M
+    copytruncate
+}
+
+/var/log/azure/Microsoft.EnterpriseCloud.Monitoring.OmsAgentForLinux/extension.log {
+    rotate 3
+    missingok
+    notifempty
+    compress
+    size 100M
+    copytruncate
+}" > /var/log/azure/Microsoft.EnterpriseCloud.Monitoring.OmsAgentForLinux/logrotate.conf
+
+ln -s /var/log/azure/Microsoft.EnterpriseCloud.Monitoring.OmsAgentForLinux/logrotate.conf /etc/logrotate.d/LinuxOMSAgent
+
+else
+        echo "$OMSAgent is not present, skipping..."
+fi
+
+if [[ -f /var/log/azure/Microsoft.Azure.Diagnostics.LinuxDiagnostic/extension.log ]] ;
+then
+   echo "/var/log/azure/Microsoft.Azure.Diagnostics.LinuxDiagnostic/extension.log {
+    rotate 3
+    missingok
+    notifempty
+    compress
+    size 100M
+    copytruncate
+}" > /var/log/azure/Microsoft.Azure.Diagnostics.LinuxDiagnostic/logrotate.conf
+
+ln -s /var/log/azure/Microsoft.Azure.Diagnostics.LinuxDiagnostic/logrotate.conf /etc/logrotate.d/diagnostic
+
+else
+        echo "$diagnostic is not present, skipping..."
+fi
+
+if [[ -f /var/log/azure/Microsoft.Azure.RecoveryServices.VMSnapshotLinux/extension.log ]] ;
+then
+   echo "/var/log/azure/Microsoft.Azure.RecoveryServices.VMSnapshotLinux/extension.log {
+    rotate 3
+    missingok
+    notifempty
+    compress
+    size 100M
+    copytruncate
+}" > /var/log/azure/Microsoft.Azure.RecoveryServices.VMSnapshotLinux/logrotate.conf
+
+ln -s /var/log/azure/Microsoft.Azure.RecoveryServices.VMSnapshotLinux/logrotate.conf /etc/logrotate.d/VMSnapshot
+
+else
+        echo "$VMSnapshot is not present, skipping..."
+fi
+
+if [[ -f /var/log/azure/Microsoft.OSTCExtensions.AzureEnhancedMonitorForLinux/extension.log ]] ;
+then
+   echo "/var/log/azure/Microsoft.OSTCExtensions.AzureEnhancedMonitorForLinux/extension.log {
+    rotate 3
+    missingok
+    notifempty
+    compress
+    size 100M
+    copytruncate
+}" > /var/log/azure/Microsoft.OSTCExtensions.AzureEnhancedMonitorForLinux/logrotate.conf
+
+ln -s /var/log/azure/Microsoft.OSTCExtensions.AzureEnhancedMonitorForLinux/logrotate.conf /etc/logrotate.d/AzureEnhancedMonitor
+
+else
+        echo "$AzureEnhancedMonitor is not present, skipping..."
+fi
+
+if [[ -f /var/log/azure/Microsoft.OSTCExtensions.VMAccessForLinux/extension.log ]] ;
+then
+   echo "/var/log/azure/Microsoft.OSTCExtensions.VMAccessForLinux/extension.log {
+    rotate 3
+    missingok
+    notifempty
+    compress
+    size 100M
+    copytruncate
+}" > /var/log/azure/Microsoft.OSTCExtensions.VMAccessForLinux/logrotate.conf
+
+ln -s /var/log/azure/Microsoft.OSTCExtensions.VMAccessForLinux/logrotate.conf /etc/logrotate.d/VMAccess
+
+else
+        echo "$VMAccess is not present, skipping..."
+fi
